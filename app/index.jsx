@@ -1,7 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import LoginScreen from "./Screens/LoginScreen";
-import { client } from "./Utils/KindeConfig";
-import { useEffect } from "react";
+import { StyleSheet, View } from 'react-native';
+import { useEffect } from 'react';
+import { client } from './Utils/KindeConfig';
+import { NavigationContainer } from '@react-navigation/native';
+import TabNavigation from './Navigations/TabNavigation';
+import LoginScreen from './Screens/LoginScreen';
+
 
 export default function Index() {
   useEffect(() => {
@@ -9,22 +12,21 @@ export default function Index() {
   }, []);
 
   const checkAuthenticate = async () => {
-    // Using `isAuthenticated` to check if the user is authenticated or not
-    if (await client.isAuthenticated) {
-      // Need to implement, e.g: call an api, etc...
+    if (await client.isAuthenticated()) {
       const userProfile = await client.getUserDetails();
       console.log(userProfile);
-      // output: {"given_name":"Dave","id":"abcdef","family_name":"Smith","email":"dave@smith.com"}
-      console.log('Authenticated!!!!!')
+      console.log('Authenticated!!!!!');
     } else {
-      // Need to implement, e.g: redirect user to sign in, etc..
+      return(
+        <LoginScreen/>
+      )
     }
   };
-  
+
   return (
-    <View>
-      <LoginScreen/>
-    </View>
+    <NavigationContainer independent={true}>
+      <TabNavigation/>
+    </NavigationContainer>
   );
 }
 
