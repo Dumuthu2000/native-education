@@ -1,22 +1,22 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Colors from '../Utils/Colors'
 import { client } from '../Utils/KindeConfig'
+import { AuthContext } from '../index'
 
 const LoginScreen = () => {
+    const {auth, setAuth} = useContext(AuthContext)
     const handleSignUp = async () => {
         const token = await client.register();
         if (token) {
-          // User was authenticated
-          console.log('Authenticated Successfully');
+            setAuth(true);
         }
       };
       
       const handleSignIn = async () => {
         const token = await client.login();
         if (token) {
-          // User was authenticated
-          console.log('Authenticated Successfully');
+            setAuth(true);
         }
       };
   return (
