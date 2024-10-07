@@ -21,13 +21,13 @@ const Header = () => {
       <View style={{display:'flex', flexDirection:'row', gap:10, alignItems:'center'}}>
         <Image source={{uri: userDetails.picture}} style={{width:45, height:45, borderRadius:50}}/>
         <View>
-          <Text style={{fontSize:18}}>Welcome,</Text>
-          <Text style={{fontSize:20, fontWeight:'bold', color:Colors.PRIMARY}}>{userDetails.given_name}</Text>
+          <Text style={{fontSize:18, fontFamily:'outfit'}}>Welcome,</Text>
+          <Text style={{fontSize:20, fontFamily:'outfit-bold', color:Colors.PRIMARY}}>{userDetails.given_name}</Text>
         </View>
       </View>
       <View style={styles.input}>
         <Ionicons name="search" size={24} color={Colors.GRAY}/>
-        <TextInput placeholder='Search'/>
+        <TextInput placeholder='Search' style={{fontFamily:'outfit', width:100}}/>
       </View>
     </>
   )
