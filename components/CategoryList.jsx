@@ -1,10 +1,32 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Colors from '../app/Utils/Colors'
 import SectionHeadings from './SectionHeadings';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from '../config/FirebaseConfig';
 
-const CategoryList = ({categories}) => {
+const CategoryList = () => {
+    const[categories, setCategories] = useState([]);
     const[activeIndex, setActiveIndex] = useState();
+
+    useEffect(()=>{
+        getCategories();
+    },[])
+
+    //Get category data from firebase
+    const getCategories=async()=>{
+        const docQuery = query(collection(db, 'category'));
+        const querySnapshot = await getDocs(docQuery);
+
+        //Collect all categories in an array
+        const categoryList = [];
+        querySnapshot.forEach((doc)=>{
+            categoryList.push(doc.data());
+            // console.log(doc.data());
+        });
+
+        setCategories(categoryList);
+    }
   return (
     <View style={{marginTop:20}}>
         <SectionHeadings headingName={`Category`}/>
@@ -15,7 +37,7 @@ const CategoryList = ({categories}) => {
         renderItem={({item, index})=>(
             <TouchableOpacity style={[styles.container, activeIndex==index&&{borderColor:Colors.PRIMARY, borderWidth:1}]}
             onPress={()=>{setActiveIndex(index)}}>
-                <Image source={{uri:item.icons.url}} style={{width:45, height:45, borderRadius:50, objectFit:'contain'}}/>
+                <Image source={{uri:item.image}} style={{width:45, height:45, borderRadius:50, objectFit:'contain'}}/>
                 <Text style={{marginTop:10}}>{item.name}</Text>
                 
             </TouchableOpacity>
