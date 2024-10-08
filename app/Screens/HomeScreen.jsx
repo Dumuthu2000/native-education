@@ -1,9 +1,10 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useContext} from 'react'
 import { AuthContext } from '../index';
 import { client } from '../Utils/KindeConfig';
 import Header from '../../components/Header';
 import CategoryList from '../../components/CategoryList';
+import CourseList from '../../components/CourseList';
 
 
 const HomeScreen = () => {
@@ -23,10 +24,13 @@ const HomeScreen = () => {
       };
       
   return (
-    <View style={{padding:10}}>
+    <ScrollView style={{padding:10}}>
       <Header/>
       <CategoryList/>
-    </View>
+      <CourseList/>
+      <CourseList/>
+      <CourseList/>
+    </ScrollView>
   )
 }
 
